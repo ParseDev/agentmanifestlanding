@@ -296,7 +296,7 @@ void main() {
 <span class="text-primary-container opacity-50">$</span>
 <code class="text-primary font-code-block truncate" id="install-command">npm install -g @manifestagent/agentmanifest</code>
 </div>
-<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary-container transition-colors ml-md shrink-0" onclick="copyCommand()">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary-container transition-colors ml-md shrink-0" onclick="copyCommand(this)">
 <span class="material-symbols-outlined text-xl" data-icon="content_copy">content_copy</span>
 </button>
 </div>
@@ -398,12 +398,11 @@ void main() {
 <!-- Footer -->
 
 <script>
-        function copyCommand() {
+        function copyCommand(btn) {
             const command = document.getElementById('install-command').innerText;
             navigator.clipboard.writeText(command).then(() => {
-                const btn = event.currentTarget;
                 const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<span class="material-symbols-outlined text-primary-container text-xl" data-icon="check">check</span>';
+                btn.innerHTML = '<span class="material-symbols-outlined text-primary-container text-xl" data-icon="check">check</span><span class="font-label-sm text-primary-container">Copied</span>';
                 setTimeout(() => {
                     btn.innerHTML = originalIcon;
                 }, 2000);
