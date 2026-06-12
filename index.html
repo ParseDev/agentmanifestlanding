@@ -1,0 +1,415 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AgentManifest | Docker for AI Agents</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#006970",
+                    "secondary": "#ebb2ff",
+                    "on-tertiary-fixed": "#1b1b1f",
+                    "error": "#ffb4ab",
+                    "on-background": "#e5e1e4",
+                    "surface-container": "#201f22",
+                    "tertiary": "#f8f4fa",
+                    "on-primary-fixed-variant": "#004f54",
+                    "surface-variant": "#353437",
+                    "on-tertiary-container": "#5f5e63",
+                    "inverse-primary": "#006970",
+                    "background": "#131315",
+                    "tertiary-container": "#dbd8de",
+                    "on-secondary": "#520072",
+                    "outline": "#849495",
+                    "surface-container-highest": "#353437",
+                    "error-container": "#93000a",
+                    "on-surface": "#e5e1e4",
+                    "primary-container": "#00f0ff",
+                    "on-primary": "#00363a",
+                    "outline-variant": "#3b494b",
+                    "on-tertiary-fixed-variant": "#47464b",
+                    "on-secondary-fixed-variant": "#74009f",
+                    "inverse-on-surface": "#313032",
+                    "on-secondary-fixed": "#320047",
+                    "surface-container-lowest": "#0e0e10",
+                    "on-surface-variant": "#b9cacb",
+                    "surface-bright": "#39393b",
+                    "surface-dim": "#131315",
+                    "primary-fixed-dim": "#00dbe9",
+                    "tertiary-fixed": "#e4e1e7",
+                    "surface": "#131315",
+                    "tertiary-fixed-dim": "#c8c5cb",
+                    "surface-tint": "#00dbe9",
+                    "secondary-fixed": "#f8d8ff",
+                    "surface-container-low": "#1c1b1d",
+                    "secondary-fixed-dim": "#ebb2ff",
+                    "secondary-container": "#b600f8",
+                    "primary-fixed": "#7df4ff",
+                    "primary": "#dbfcff",
+                    "on-tertiary": "#303034",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e5e1e4",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#002022",
+                    "on-secondary-container": "#fff6fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "gutter": "20px",
+                    "lg": "40px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "xs": "8px",
+                    "sm": "16px",
+                    "base": "4px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "body-md": ["Geist"],
+                    "display-lg": ["Space Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Space Grotesk"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "code-block": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "code-block": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-dark {
+            background: rgba(26, 26, 30, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-border:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+        .technical-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .neon-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px #00f0ff); }
+            50% { opacity: .7; filter: drop-shadow(0 0 2px #00f0ff); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .code-window {
+            background: #0d0d0f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary">
+<!-- Background Animation -->
+<!-- STITCH_SHADER_START:ANIMATION_6 class="fixed inset-0 w-full h-full -z-10" -->
+<div class="fixed inset-0 w-full h-full -z-10" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_6" style="display:block;width:100%;height:100%" width="1280" height="2230"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_6');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 mouse = u_mouse / u_resolution;
+
+    // Create a deep space technical grid
+    vec2 gridUV = fract(uv * 30.0 - u_time * 0.05);
+    float gridLine = smoothstep(0.02, 0.0, gridUV.x) + smoothstep(0.02, 0.0, gridUV.y);
+
+    // Scanline effect
+    float scanline = sin(uv.y * 200.0 + u_time * 2.0) * 0.02;
+
+    // Mouse proximity glow
+    float dist = length(uv - mouse);
+    float mouseGlow = smoothstep(0.4, 0.0, dist) * 0.4;
+
+    // Subtle pulsing data stream clusters
+    float noise = sin(uv.x * 10.0 + u_time) * cos(uv.y * 10.0 - u_time);
+    float cluster = smoothstep(0.8, 1.0, noise) * 0.1;
+
+    // Combine colors using the cyan theme
+    vec3 cyan = vec3(0.0, 0.94, 1.0);
+    vec3 bgColor = vec3(0.02, 0.02, 0.04);
+
+    vec3 color = bgColor;
+    color += cyan * gridLine * 0.15;
+    color += cyan * mouseGlow;
+    color += cyan * cluster;
+    color -= scanline;
+
+    // Edge vignette
+    float vignette = smoothstep(1.5, 0.5, length(uv - 0.5));
+    color *= vignette;
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_6 -->
+<!-- Global Background Decoration Layer -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+<div class="absolute inset-0 technical-grid"></div>
+</div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex justify-between items-center px-margin-desktop h-20 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container text-3xl neon-pulse" data-icon="terminal">terminal</span>
+<span class="font-display-lg text-headline-lg font-bold tracking-tighter text-primary">AgentManifest</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Docs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Registry</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Pricing</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="#">Changelog</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="hidden md:flex items-center gap-xs px-md py-xs glass-dark rounded-full text-on-surface hover:scale-105 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-sm" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm">Star on GitHub</span>
+</button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="relative z-10 pt-32">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-margin-desktop flex flex-col items-center text-center py-xl">
+<div class="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-surface-container-low border border-primary-container/20 mb-md">
+<span class="w-2 h-2 rounded-full bg-primary-container neon-pulse"></span>
+<span class="text-primary-container font-label-sm uppercase tracking-widest">Version 2.4.0 Alpha Available</span>
+</div>
+<h1 class="font-display-lg text-[64px] md:text-[96px] leading-[1.05] font-bold tracking-tighter text-primary mb-sm">
+                Docker for <br>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary">AI Agents</span>
+</h1>
+<p class="max-w-xl text-on-surface-variant font-body-md text-lg mb-lg">
+                The container orchestration layer for agents. Define manifests. Deploy fleets.
+            </p>
+<!-- Terminal CTA -->
+<div class="w-full max-w-2xl glass-dark p-1 rounded-xl mb-xl group glow-border transition-all">
+<div class="flex items-center justify-between bg-surface-container-lowest rounded-lg p-md border border-outline-variant/30">
+<div class="flex items-center gap-md font-label-sm overflow-hidden">
+<span class="text-primary-container opacity-50">$</span>
+<code class="text-primary font-code-block truncate" id="install-command">npm install -g @manifestagent/agentmanifest</code>
+</div>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary-container transition-colors ml-md shrink-0" onclick="copyCommand()">
+<span class="material-symbols-outlined text-xl" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap justify-center gap-xl md:gap-24 opacity-60">
+<span class="font-label-sm text-sm tracking-widest uppercase">Define.</span>
+<span class="font-label-sm text-sm tracking-widest uppercase">Deploy.</span>
+</div>
+</section>
+<!-- Define & Deploy Showcase Section -->
+<section class="max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Example 1: Email Scheduler -->
+<div class="glass-dark rounded-xl overflow-hidden flex flex-col group glow-border transition-all">
+<div class="flex items-center justify-between px-md py-sm bg-surface-container/50 border-b border-outline-variant/30">
+<div class="flex items-center gap-xs">
+<img alt="Gmail" class="w-6 h-6 object-contain rounded-sm bg-white p-0.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIwTqWtKg17m5CqO_D6nAc2RUrtvxDkfSHO8bDZa_7zL5ivXHzTpX1WbnV3q6J8SWRQRhPuk9MAy-G_MDQFL-Mvn7FGx5u4X8OlxG6Oe8Sg9479_xOB5l12DTtqQtmdr_A-GTiiOoLWxUnqfsWWinw6Q1HRXXanX7fAUH_I26RNu4ZPD1i9llZn6wMCTuAqsy3BinqELSvVk9k8PJM6091sDloPfmbJTxs5ekI1biZ_s20unUQIa1tbV-GvIagra1ytm_tgmwukIAD">
+<span class="font-label-sm text-on-surface-variant text-xs">email-scheduler.manifest.yaml</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="flex h-2 w-2 rounded-full bg-primary-container neon-pulse"></span>
+<span class="font-label-sm text-[10px] uppercase text-primary-container">Deployed</span>
+</div>
+</div>
+<div class="p-md code-window font-code-block text-sm text-primary/80 overflow-x-auto">
+<pre><code><span class="text-secondary">agent:</span> EmailScheduler
+<span class="text-secondary">version:</span> 1.2.0
+<span class="text-secondary">connections:</span>
+  - <span class="text-on-surface-variant">type:</span> gmail_api
+    <span class="text-on-surface-variant">scope:</span> read_write
+<span class="text-secondary">logic:</span>
+  <span class="text-on-surface-variant">trigger:</span> natural_language_query
+  <span class="text-on-surface-variant">action:</span> schedule_calendar_sync</code></pre>
+</div>
+<div class="p-lg">
+<h3 class="font-headline-lg text-xl text-primary mb-xs">Email Scheduler</h3>
+<p class="text-on-surface-variant text-sm">Automated inbox management with native Gmail OAuth integration and temporal reasoning.</p>
+</div>
+</div>
+<!-- Example 2: Marketing Manager -->
+<div class="glass-dark rounded-xl overflow-hidden flex flex-col group glow-border transition-all">
+<div class="flex items-center justify-between px-md py-sm bg-surface-container/50 border-b border-outline-variant/30">
+<div class="flex items-center gap-xs">
+<img alt="HubSpot" class="w-6 h-6 object-contain rounded-sm bg-white p-0.5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA32j1EZ-6Jv12IqHa-mnkmMy-LoeafrleXsrQfXMuI7WNG84Z78T9Fmzs23OsalDMG59H8DPFu8B9ZVEyhRRzgnmySc8fGusB7Dn-SQGFdsigWjZupX2f6a1GES2v8wpd96OyQN-ZhTxhxCOB1VEbb8xJP4seRdRtX8y7byqWI3u1KfOVMb7Qih_0wGwvh0pEloSwh3jckFSw_8cp3eow7dw_xL7jzxDEBG9XgBwpMD0CtGEPNNZXN1kuyozxgV_YQ55zYFS213Bjw">
+<span class="font-label-sm text-on-surface-variant text-xs">marketing-lead.manifest.yaml</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="flex h-2 w-2 rounded-full bg-secondary neon-pulse"></span>
+<span class="font-label-sm text-[10px] uppercase text-secondary">Active</span>
+</div>
+</div>
+<div class="p-md code-window font-code-block text-sm text-primary/80 overflow-x-auto">
+<pre><code><span class="text-secondary">agent:</span> MarketingManager
+<span class="text-secondary">tools:</span>
+  - <span class="text-on-surface-variant">id:</span> hubspot_crm
+  - <span class="text-on-surface-variant">id:</span> meta_ads_manager
+  - <span class="text-on-surface-variant">id:</span> tiktok_creative_api
+<span class="text-secondary">policy:</span>
+  <span class="text-on-surface-variant">sandbox:</span> extreme
+  <span class="text-on-surface-variant">max_spend:</span> $500/day</code></pre>
+</div>
+<div class="p-lg">
+<h3 class="font-headline-lg text-xl text-primary mb-xs">Marketing Manager</h3>
+<p class="text-on-surface-variant text-sm">Cross-platform campaign orchestrator connected to HubSpot, Meta, and TikTok for real-time ROI optimization.</p>
+</div>
+</div>
+</div>
+<!-- Deployment CTA -->
+<div class="mt-xl text-center py-lg border-y border-outline-variant/20 bg-surface-container-lowest/50 rounded-xl">
+<p class="font-label-sm text-on-surface-variant uppercase tracking-[0.2em] mb-md">Production Ready</p>
+<div class="inline-flex items-center gap-md px-lg py-sm glass-dark rounded-full">
+<span class="material-symbols-outlined text-primary-container" data-icon="rocket_launch">rocket_launch</span>
+<span class="font-code-block text-lg text-primary">agentmanifest <span class="text-secondary">deploy</span></span>
+</div>
+<p class="mt-md text-on-surface-variant text-sm">Deploy any manifest to your infrastructure with a single atomic command.</p>
+</div>
+</section>
+<!-- Features Brief -->
+<section class="max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="glass-dark p-lg rounded-xl">
+<span class="material-symbols-outlined text-primary-container text-3xl mb-md" data-icon="hub">hub</span>
+<h3 class="font-headline-lg text-lg text-primary mb-xs">Infrastructure as Code</h3>
+<p class="text-on-surface-variant text-sm">Define tools, memory, and access in simple YAML. Version control your intelligence.</p>
+</div>
+<div class="glass-dark p-lg rounded-xl glow-border transition-all">
+<span class="material-symbols-outlined text-secondary text-3xl mb-md" data-icon="shield_with_heart">shield_with_heart</span>
+<h3 class="font-headline-lg text-lg text-primary mb-xs">Secure Sandbox</h3>
+<p class="text-on-surface-variant text-sm">Isolated execution environments for untrusted agent actions. 100% gapped from host.</p>
+</div>
+<div class="glass-dark p-lg rounded-xl">
+<span class="material-symbols-outlined text-primary-container text-3xl mb-md" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="font-headline-lg text-lg text-primary mb-xs">Auto-Scaling</h3>
+<p class="text-on-surface-variant text-sm">Spin up thousands of specialized agents in seconds to handle massive parallel tasks.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+
+<script>
+        function copyCommand() {
+            const command = document.getElementById('install-command').innerText;
+            navigator.clipboard.writeText(command).then(() => {
+                const btn = event.currentTarget;
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined text-primary-container text-xl" data-icon="check">check</span>';
+                setTimeout(() => {
+                    btn.innerHTML = originalIcon;
+                }, 2000);
+            });
+        }
+    </script>
+
+
+</body></html>
